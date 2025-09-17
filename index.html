@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust & Safety Team Lead</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .poster-container {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            color: #e5e7eb;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+            border: 5px solid #374151;
+            position: relative;
+            overflow: hidden;
+        }
+        .poster-container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: move-circle 10s infinite linear;
+        }
+        .poster-container::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: move-circle 8s infinite reverse linear;
+        }
+        @keyframes move-circle {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(100px, 100px); }
+            100% { transform: translate(0, 0); }
+        }
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #d1d5db;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            margin-bottom: 40px;
+        }
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .point {
+            background-color: #2b3544;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            border: 1px solid #374151;
+        }
+        .point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .point-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #d1d5db;
+            margin-bottom: 10px;
+        }
+        .point-text {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #2563eb;
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+        }
+        .cta-button:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .cta-button:disabled {
+            background-color: #4b5563;
+            cursor: not-allowed;
+        }
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            color: #38bdf8;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            color: #e5e7eb;
+            position: relative;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+        .chat-container {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            border: 1px solid #374151;
+            border-radius: 10px;
+            padding: 1rem;
+            background-color: #111827;
+        }
+        .chat-message {
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+        }
+        .user-message {
+            background-color: #2b3544;
+            padding: 0.75rem;
+            border-radius: 10px;
+            text-align: right;
+        }
+        .model-message {
+            background-color: #374151;
+            padding: 0.75rem;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .input-group input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #374151;
+            background-color: #2b3544;
+            color: #e5e7eb;
+            outline: none;
+        }
+        .loading-indicator {
+            text-align: center;
+            color: #9ca3af;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <h1 class="title">Lead the Future of Trust</h1>
+        <h2 class="subtitle">Join our team as a Trust and Safety Team Lead</h2>
+
+        <div class="key-points">
+            <div class="point">
+                <div class="point-title">
+                    <span class="icon">🚀</span> Inspire and Lead
+                </div>
+                <div class="point-text">
+                    Motivate a team of 25+ content moderators to maintain a safe online environment.
+                </div>
+            </div>
+            <div class="point">
+                <div class="point-title">
+                    <span class="icon">🛡️</span> Protect and Defend
+                </div>
+                <div class="point-text">
+                    Ensure adherence to policies, protect user data, and uphold community standards.
+                </div>
+            </div>
+            <div class="point">
+                <div class="point-title">
+                    <span class="icon">📈</span> Drive Success
+                </div>
+                <div class="point-text">
+                    Achieve and exceed critical performance goals, SLAs, and KPIs through strategic guidance.
+                </div>
+            </div>
+            <div class="point">
+                <div class="point-title">
+                    <span class="icon">🤝</span> Coach and Develop
+                </div>
+                <div class="point-text">
+                    Foster career growth and provide valuable feedback in one-on-one sessions.
+                </div>
+            </div>
+            <div class="point">
+                <div class="point-title">
+                    <span class="icon">🧠</span> Solve Challenges
+                </div>
+                <div class="point-text">
+                    Use critical thinking and emotional resilience to solve complex, real-world problems.
+                </div>
+            </div>
+            <div class="point">
+                <div class="point-title">
+                    <span class="icon">🌟</span> Shape the Internet
+                </div>
+                <div class="point-text">
+                    Your work directly contributes to making the internet a safer, more positive place.
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-4">
+            <button id="learnMoreBtn" class="cta-button">Learn More About the Role ✨</button>
+            <a href="mailto:emulit@c.snap.com,mdotimas@c.snap.com" target="_blank" class="cta-button bg-purple-600 hover:bg-purple-700">Apply Now</a>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="qnaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeBtn">&times;</span>
+            <h3 class="text-xl font-bold mb-4">Ask a Question About the Role</h3>
+            <div id="chatHistory" class="chat-container">
+                <!-- Chat messages will be appended here -->
+                <div class="chat-message model-message">
+                    Click "Generate Sample Q&A" to get a list of common questions and answers about this role.
+                </div>
+            </div>
+            <div class="flex justify-center">
+                 <button id="generateQnAButton" class="cta-button">Generate Sample Q&A ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            const modal = document.getElementById('qnaModal');
+            const closeBtn = document.getElementById('closeBtn');
+            const generateQnAButton = document.getElementById('generateQnAButton');
+            const chatHistory = document.getElementById('chatHistory');
+            
+            const qnas = [
+                {
+                    q: "What career level can apply? Is this for promotion?",
+                    a: "If your career level is 10, this will just be a lateral movement, while if you are currently CL11 your promotion to CL 10 will be based on your performance as team lead. Note that you are also required to pass ELP prior to getting promoted."
+                },
+                {
+                    q: "Is this a Full Time RTO?",
+                    a: "Yes"
+                },
+                {
+                    q: "SKILL AND QUALIFICATIONS:",
+                    a: "• Resilience:\no Strong coping, emotional resilience, and stress-management skills\no Ability to perform duties objectively, devoid of inherent biases or personal beliefs, in the best interest of client policies.\n• Strong knowledge of content policies, community guidelines, and online safety practices\n• Leadership and Management Skills:\no Strong leadership qualities to guide and motivate team members.\no Ability to delegate tasks effectively and manage workloads.\no Decision-making skills to resolve conflicts and make tough choices.\no Time management and organizational skills to prioritize tasks and meet deadlines.\n• Communication Skills:\no Excellent verbal and written communication skills to convey information clearly and concisely.\no Active listening skills to understand team members' concerns and provide effective feedback.\n• Problem-solving and Critical Thinking:\no Analytical skills to identify issues, assess situations, and find practical solutions.\no Ability to think critically and make informed decisions under pressure.\n• Performance Management:\no Skill in setting performance goals and monitoring team members' progress.\no Capacity to provide constructive feedback and coach team members for improvement.\no Ability to conduct performance evaluations and implement performance improvement plans.\n• Technical / Domain Proficiency:\n o Strong understanding of the relevant business process and industry-specific tools.\n o Proficiency in using software and systems necessary for team operations.\n o Ability to analyze data and generate meaningful insights to drive performance improvements.\n• Conflict Resolution:\no Capability to manage conflicts within the team and mediate disputes.\no Skill in maintaining professionalism and promoting harmony in challenging situations.\n• Adaptability and Flexibility:\no Openness to change and ability to adapt to evolving business requirements.\no Flexibility to manage unexpected challenges and adjust plans accordingly.\n• Client and Stakeholder Management:\no Strong interpersonal skills to interact with clients and stakeholders.\no Ability to understand client expectations and manage relationships effectively.\n• Attention to Detail:\no Thoroughness in reviewing and validating work for accuracy and quality.\no Ability to identify process gaps and areas for improvement.\n• Ethical and Professional Conduct:\no Adherence to ethical standards and professionalism in all interactions.\no Commitment to maintaining confidentiality and data security.\no Emotional Intelligence:\no Awareness of and ability to manage emotions, both for oneself and when interacting with team members."
+                },
+                {
+                    q: "Overall Purpose:",
+                    a: "Accenture is a trusted, innovative, comprehensive, and experienced partner to leading platform companies. The Trust and Safety offering within Accenture Operations helps keep the internet safe and helps platform companies accelerate, scale, and improve their businesses.\n\nYou will be responsible for leading a team of Content Moderators whose role is analyzing and reviewing user profiles, audio, videos, and text-based content and/or investigating, escalating and/or resolving issues that are reported by users or flagged by the system. Due to the nature of the role, the individual and you may be exposed to flashing lights or contrasting light and dark patterns. \n\nContent moderation is meaningful work that helps keep the internet safe. It may also be challenging, at times. In the context of this role, individuals may be directly or inadvertently exposed to potentially objectionable and sensitive content (e.g., graphic, violent, sexual, or egregious). Therefore, any role supporting content moderation needs strong resilience and coping skills. We care for the health and well-being of our people and provide the support and resources needed to perform their role responsibilities. Active participation in Accenture’s well-being support program, designed specifically for the Trust & Safety community, provides valuable skills to promote individual and collective well-being."
+                }
+            ];
+
+            const addMessageToChat = (message, sender) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${sender}-message`;
+                messageDiv.textContent = message;
+                chatHistory.appendChild(messageDiv);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            };
+
+            learnMoreBtn.onclick = () => {
+                modal.style.display = 'flex';
+            };
+
+            closeBtn.onclick = () => {
+                modal.style.display = 'none';
+            };
+
+            window.onclick = (event) => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            };
+            
+            generateQnAButton.onclick = () => {
+                qnas.forEach(qna => {
+                    addMessageToChat(qna.q, 'user');
+                    addMessageToChat(qna.a, 'model');
+                });
+            };
+        });
+    </script>
+</body>
+</html>
+
